@@ -21,6 +21,12 @@ resource "google_service_account" "account" {
   project = var.project
 }
 
+resource "google_project_iam_member" "admin" {
+  project = var.project
+  role   = "roles/pubsub.admin"
+  member = "serviceAccount:${google_service_account.account.email}"
+}
+
 resource "google_project_iam_member" "editor" {
   project = var.project
   role   = "roles/pubsub.editor"
