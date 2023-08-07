@@ -40,6 +40,11 @@ resource "google_pubsub_topic" "this" {
 resource "google_pubsub_subscription" "subscription" {
   name = "${local.uuid}-detector-subscription"
   topic = "${google_pubsub_topic.this.name}"
+
+  retry_policy {
+    minimum_backoff = "10s"
+  }
+
   depends_on = [
     google_project_iam_member.publisher
   ]
