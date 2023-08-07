@@ -17,7 +17,7 @@ locals {
 
 resource "google_service_account" "account" {
   account_id   = "${local.uuid}-gcf-sa"
-  display_name = "Test service account ${local.uuid}"
+  display_name = "Test service account ${local.uuid}-gcf-sa"
   project = var.project
 }
 
