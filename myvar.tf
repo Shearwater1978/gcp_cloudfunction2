@@ -15,3 +15,11 @@ variable location {
   default     = ""
   description = "Region"
 }
+
+variable basename {
+  type        = string
+  default     = "detector"
+  description = "basename for each resource"
+}
+
+variable gcp_credentials {}
