@@ -60,5 +60,3 @@ resource "google_logging_project_sink" "stopvm" {
 
   unique_writer_identity = true
 }
-
-
