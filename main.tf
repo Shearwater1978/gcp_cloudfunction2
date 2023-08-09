@@ -10,12 +10,12 @@ resource "random_pet" "this" {
 }
 
 locals {
-  uuid = random_pet.this.id
+  prefix = random_pet.this.id
 }
 
 resource "google_service_account" "account" {
-  account_id   = "${local.uuid}-gcf-sa"
-  display_name = "Test service account ${local.uuid}-gcf-sa"
+  account_id   = "${local.prefix}-gcf-sa"
+  display_name = "Test service account ${local.prefix}-gcf-sa"
   project      = var.project
 }
 
@@ -38,11 +38,11 @@ resource "google_project_iam_member" "publisher" {
 }
 
 resource "google_pubsub_topic" "this" {
-  name = "${local.uuid}-${var.basename}-topic"
+  name = "${local.prefix}-${var.basename}-topic"
 }
 
 resource "google_pubsub_subscription" "subscription" {
-  name  = "${local.uuid}-${var.basename}-subscription"
+  name  = "${local.prefix}-${var.basename}-subscription"
   topic = google_pubsub_topic.this.name
 
   retry_policy {
@@ -57,7 +57,7 @@ resource "google_pubsub_subscription" "subscription" {
 }
 
 resource "google_logging_project_sink" "startvm" {
-  name        = "${local.uuid}-startvm"
+  name        = "${local.prefix}-startvm"
   destination = "pubsub.googleapis.com/projects/${var.project}/topics/${google_pubsub_topic.this.name}"
 
   filter = <<-filtercontent
@@ -68,7 +68,7 @@ resource "google_logging_project_sink" "startvm" {
 }
 
 resource "google_logging_project_sink" "stopvm" {
-  name        = "${local.uuid}-stopvm"
+  name        = "${local.prefix}-stopvm"
   destination = "pubsub.googleapis.com/projects/${var.project}/topics/${google_pubsub_topic.this.name}"
 
   filter = <<-filtercontent
