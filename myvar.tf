@@ -1,25 +1,25 @@
-variable project {
+variable "project" {
   type        = string
   default     = ""
   description = "Project name"
 }
 
-variable zone {
+variable "zone" {
   type        = string
   default     = ""
   description = "Zone"
 }
 
-variable location {
+variable "location" {
   type        = string
   default     = ""
   description = "Region"
 }
 
-variable basename {
+variable "basename" {
   type        = string
   default     = "detector"
   description = "basename for each resource"
 }
 
-variable gcp_credentials {}
+variable "gcp_credentials" {}
